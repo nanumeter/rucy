@@ -5,6 +5,7 @@
   "dependencies": {
     "plotly.js": "^1.39.1",
     "react": "^16.4.1",
+    "react-bootstrap": "^0.32.1",
     "react-chart-editor": "^0.18.2",
     "react-dom": "^16.4.1",
     "react-google-charts": "^1.6.6",
