@@ -7,11 +7,14 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      data: [], layout: {
+      data: [],
+      layout: {
         title: "Sankey",
         width: 1118,
         height: 772,
-        font: {},
+        font: {
+          size: 10
+        },
         updatemenus: []
       }, frames: [], config: {}
     };
@@ -31,12 +34,47 @@ class App extends Component {
   _getMovies = async () => {
     const json = await this._callApi();
     this.setState({
-      data: json.data
-    })
+      data: [
+        {
+          type: "sankey",
+          domain: {
+            x: [
+              0,
+              1
+            ],
+            y: [
+              0,
+              1
+            ]
+          },
+          orientation: "h",
+          valueformat: ".0f",
+          valuesuffix: "",
+          node: {
+            pad: 15,
+            thickness: 15,
+            line: {
+              color: "black",
+              width: 0.5
+            },
+            label: json.label,
+            color: []
+          },
+          link: {
+            source: json.source,
+            target: json.target,
+            value: json.value,
+            color: json.color,
+            label: json.link_label
+          }
+        }
+      ]
+    });
+    console.log(this.state.data);
   }
 
   _callApi = () => {
-    return fetch('http://localhost:3000/sankey_energy.json')
+    return fetch('http://localhost:8000/api/sankeychart/?format=json')
       .then(potato => potato.json())
       .catch(err => console.log(err));
   }
